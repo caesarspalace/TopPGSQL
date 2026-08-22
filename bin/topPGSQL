@@ -1,0 +1,2 @@
+topsql=$HOME/projects/TopPGSQL
+/usr/java/jdk-18.0.2.1/bin/java --module-path /home/adrian/projects/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml -Ddebug=0 -Dcat.file=$topsql/conf/cat.postgres -Dcat.log=$topsql/log/topsql.log -cp $topsql/dist/libs/cat-8.6.18.jar:$topsql/dist/libs/postgresql-42.2.4.jar:$topsql/dist/TopPGSQL.jar  speco.toppgsql.TopPGSQL

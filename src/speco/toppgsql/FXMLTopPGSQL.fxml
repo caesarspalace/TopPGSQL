@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLTopPgSqlController">
+   <children>
+      <SplitPane dividerPositions="0.07802874743326489" orientation="VERTICAL" prefHeight="489.0" prefWidth="657.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="655.0">
+               <children>
+                  <HBox layoutX="2.0" layoutY="5.0" prefHeight="24.0" prefWidth="648.0">
+                     <children>
+                        <ComboBox fx:id="baseId" onAction="#handlerBaseChoice" prefWidth="150.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TableView fx:id="tableView" prefHeight="445.0" prefWidth="655.0">
+                    <columns>
+                      <TableColumn fx:id="pid" prefWidth="75.0" text="pid" />
+                      <TableColumn fx:id="rolname" prefWidth="75.0" text="user" />
+                        <TableColumn fx:id="waitEventType" prefWidth="94.0" text="wet" />
+                        <TableColumn fx:id="waitEvent" prefWidth="83.0" text="we" />
+                        <TableColumn fx:id="state" prefWidth="86.0" text="state" />
+                        <TableColumn fx:id="query" prefWidth="239.0" text="query" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

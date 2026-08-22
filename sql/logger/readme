@@ -1,0 +1,2 @@
+grant insert on logger to user;
+call create_trg_insert('tabla');

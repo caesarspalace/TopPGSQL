@@ -1,0 +1,17 @@
+#Thu Aug 20 08:42:20 GMT-03:00 2026
+clave_2sys12346=
+driver_1=org.postgresql.Driver
+driver_2=org.postgresql.Driver
+latido=0
+maxconexiones=2
+nombre_1=test
+nombre_2=vasto
+password_1=3832382b5c374d7a10
+password_2=580f58605c1e265e
+pool=2
+rdbms_1=postgres
+rdbms_2=postgres
+url_1=jdbc\:postgresql\://localhost\:5432/postgres
+url_2=jdbc\:postgresql\://losangeles01.speco\:4444/postgres
+user_1=postgres
+user_2=sysvasto
