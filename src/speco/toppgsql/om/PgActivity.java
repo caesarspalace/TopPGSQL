@@ -17,12 +17,34 @@ public class PgActivity extends Vom {
     String wait_event_type;
     String wait_event;
     String state;
+    Long cpu;
 
     public PgActivity() {
-            setSelect("usename rolname, pid, substr(query,1,34) query,wait_event_type,wait_event,state");
-            setFrom("pg_stat_activity");
-            setWhere(null);
-            setOrderBy("state");
+            setSelect("usename rolname, "
+                    + "pid, substr(query,1,34) query,"
+                    + "COALESCE(wait_event_type,'CPU') as wait_event_type,"
+                    + "COALESCE(wait_event,'CPU EXEC') as wait_event,"
+                    + "state,"
+                    + "ROUND(CAST((k.exec_user_time + k.exec_system_time) AS numeric), 2) AS cpu "
+                         //       + "ROUND(CAST(k.exec_user_time AS numeric), 2) AS cpu_user_seconds,"
+             //       + "ROUND(CAST(k.exec_system_time AS numeric), 2) AS cpu_system_seconds,"
+    
+                    //       + "pg_size_pretty(k.exec_reads) AS disco_lectura_real," 
+             //       + "pg_size_pretty(k.exec_writes) AS disco_escritura_real"
+                    );
+            setFrom("pg_stat_activity a"
+                    + " LEFT JOIN pg_stat_kcache() k " +
+"  ON a.query_id = k.queryid " +
+" AND a.usesysid = k.userid " +
+" AND a.datid = k.dbid");
+            setWhere("a.state = 'active' and a.pid != pg_backend_pid()");
+          /*  setWhere(" --"
+                    + " a.query_id = k.queryid " +
+                     " AND a.usesysid = k.userid " +
+                     " AND a.datid = k.dbid"
+                    + " and a.state = 'active'"
+                    );*/
+            setOrderBy("cpu DESC");
     }
         public String getRolname() {
         return rolname;
@@ -47,6 +69,15 @@ public class PgActivity extends Vom {
     public void setQuery(String query) {
         this.query = query;
     }
+    
+     public Long getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(Long cpu) {
+        this.cpu = cpu;
+    }
+
 
     public String getWait_event_type() {
         return wait_event_type;
@@ -93,6 +124,14 @@ public class PgActivity extends Vom {
 
     public void setquery(String query) {
         this.query = query;
+    }
+
+    public Long getcpu() {
+        return cpu;
+    }
+
+    public void setcpu(Long cpu) {
+        this.cpu = cpu;
     }
 
     public String getwait_event_type() {

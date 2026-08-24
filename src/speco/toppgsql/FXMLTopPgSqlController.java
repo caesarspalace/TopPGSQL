@@ -57,7 +57,8 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     private TableColumn<PgActivity, String> state;
     @FXML
     private TableColumn<PgActivity, String> query;
-
+    @FXML
+    private TableColumn<PgActivity, String> cpu;
     Thread t = null;
     private boolean flag = true;
 
@@ -87,6 +88,7 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
                 waitEvent.setCellValueFactory(new PropertyValueFactory<>("wait_event"));
                 waitEventType.setCellValueFactory(new PropertyValueFactory<>("wait_event_type"));
                 state.setCellValueFactory(new PropertyValueFactory<>("state"));
+                cpu.setCellValueFactory(new PropertyValueFactory<>("cpu"));
                 tableView.setRowFactory(tv -> {
                     TableRow<PgActivity> row = new TableRow<>();
 
