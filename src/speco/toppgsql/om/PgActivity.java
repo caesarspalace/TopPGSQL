@@ -18,32 +18,28 @@ public class PgActivity extends Vom {
     String wait_event;
     String state;
     Long cpu;
-
+    Long ioread;
+    Long iowrite;
+    
     public PgActivity() {
             setSelect("usename rolname, "
                     + "pid, substr(query,1,34) query,"
                     + "COALESCE(wait_event_type,'CPU') as wait_event_type,"
                     + "COALESCE(wait_event,'CPU EXEC') as wait_event,"
                     + "state,"
-                    + "ROUND(CAST((k.exec_user_time + k.exec_system_time) AS numeric), 2) AS cpu "
-                         //       + "ROUND(CAST(k.exec_user_time AS numeric), 2) AS cpu_user_seconds,"
-             //       + "ROUND(CAST(k.exec_system_time AS numeric), 2) AS cpu_system_seconds,"
+                    + "ROUND(CAST((k.exec_user_time + k.exec_system_time) AS numeric), 2) AS cpu ,"
+           //       + "ROUND(CAST(k.exec_user_time AS numeric), 2) AS cpu_user_seconds,"
+           //       + "ROUND(CAST(k.exec_system_time AS numeric), 2) AS cpu_system_seconds,"
     
-                    //       + "pg_size_pretty(k.exec_reads) AS disco_lectura_real," 
-             //       + "pg_size_pretty(k.exec_writes) AS disco_escritura_real"
+                    + "ROUND(CAST(k.exec_reads AS numeric), 2) AS ioread," 
+                    + "ROUND(CAST(k.exec_writes AS numeric), 2) AS iowrite"
                     );
             setFrom("pg_stat_activity a"
                     + " LEFT JOIN pg_stat_kcache() k " +
-"  ON a.query_id = k.queryid " +
-" AND a.usesysid = k.userid " +
-" AND a.datid = k.dbid");
+                      "  ON a.query_id = k.queryid " +
+                      " AND a.usesysid = k.userid " +
+                      " AND a.datid = k.dbid");
             setWhere("a.state = 'active' and a.pid != pg_backend_pid()");
-          /*  setWhere(" --"
-                    + " a.query_id = k.queryid " +
-                     " AND a.usesysid = k.userid " +
-                     " AND a.datid = k.dbid"
-                    + " and a.state = 'active'"
-                    );*/
             setOrderBy("cpu DESC");
     }
         public String getRolname() {
@@ -78,6 +74,21 @@ public class PgActivity extends Vom {
         this.cpu = cpu;
     }
 
+    public Long getIoread() {
+        return ioread;
+    }
+
+    public void setIoread(Long ioread) {
+        this.ioread = ioread;
+    }
+    
+    public Long getIowrite() {
+        return iowrite;
+    }
+
+    public void setIowrite(Long iowrite) {
+        this.iowrite = iowrite;
+    }
 
     public String getWait_event_type() {
         return wait_event_type;
@@ -132,6 +143,22 @@ public class PgActivity extends Vom {
 
     public void setcpu(Long cpu) {
         this.cpu = cpu;
+    }
+  
+    public Long getioread() {
+        return ioread;
+    }
+
+    public void setioread(Long ioread) {
+        this.ioread = ioread;
+    }
+    
+    public Long getiowrite() {
+        return iowrite;
+    }
+
+    public void setiowrite(Long iowrite) {
+        this.iowrite = iowrite;
     }
 
     public String getwait_event_type() {

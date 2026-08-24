@@ -7,6 +7,13 @@
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/VwaitEvents.java</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelVwaitEvents.java</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelVcpuTime.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/TopPGSQL.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/PgActivity.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLPgActivityFull.fxml</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLTopPGSQL.fxml</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLTopPgSqlController.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelPg.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/PgActivityFull.java</file>
         </group>
     </open-files>
 </project-private>
