@@ -66,7 +66,9 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     
     Thread t = null;
     private boolean flag = true;
-
+    private Tx tx;
+    private ModelPg modelPg;
+    private String baseAnt;
     /**
      * Initializes the controller class.
      */
@@ -75,7 +77,15 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         ReadProperties readProperties = new ReadProperties();
         ObservableList<PgBases> observableList = FXCollections.observableArrayList(readProperties.getBases());
         baseId.setItems(observableList);
+        baseId.getSelectionModel().selectFirst();
         closeEvent();
+        baseAnt = baseId.getSelectionModel().getSelectedItem().getNombre();
+        tx = new Tx(baseId.getSelectionModel().getSelectedItem().getNombre());
+        modelPg = new ModelPg();
+        if (t == null) {
+            t = new Thread(this);
+            t.start();
+        }
         // TODO
     }
 
@@ -83,8 +93,9 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         try {
             PgBases pgBases = baseId.getSelectionModel().getSelectedItem();
             if (pgBases != null) {
-                Tx tx = new Tx(pgBases.getNombre());
-                ModelPg modelPg = new ModelPg();
+                if (!baseAnt.equals(pgBases))
+                    tx = new Tx(pgBases.getNombre());
+//                      ModelPg modelPg = new ModelPg();
                 List<PgActivity> pgActivitys = modelPg.getAllActivities(tx);
                 ObservableList<PgActivity> observableList = FXCollections.observableArrayList(pgActivitys);
                 pid.setCellValueFactory(new PropertyValueFactory<>("pid"));
@@ -106,7 +117,10 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
                     });
                     return row;
                 });
-                tableView.setItems(observableList);
+                if (observableList != null && observableList.size() > 0)
+                    tableView.setItems(observableList);
+                else 
+                    tableView.setItems(null);
             }
         } catch (Exception ex) {
             Log.error(ex);
