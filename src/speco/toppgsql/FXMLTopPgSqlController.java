@@ -27,6 +27,16 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.util.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import speco.cat.Tx;
@@ -69,6 +79,19 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     private Tx tx;
     private ModelPg modelPg;
     private String baseAnt;
+    
+  
+    @FXML
+    private LineChart<String, Number> lineChart;
+    
+    @FXML
+    private CategoryAxis xAxis;
+
+    private XYChart.Series<String, Number> series;
+    private Timeline timeline;
+    private final int MAX_DATA_POINTS = 15; // Número de muestras visibles en pantalla
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");  
+    private List<PgActivity> pgActivitys;
     /**
      * Initializes the controller class.
      */
@@ -82,6 +105,17 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         baseAnt = baseId.getSelectionModel().getSelectedItem().getNombre();
         tx = new Tx(baseId.getSelectionModel().getSelectedItem().getNombre());
         modelPg = new ModelPg();
+        series = new XYChart.Series<>();
+        series.setName("Postgres CPU Usage");
+        lineChart.getData().add(series);
+
+        // 2. Configurar el temporizador (ej. actualizar cada 1 segundo)
+        timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            actualizarGrafico();
+        }));
+        
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         if (t == null) {
             t = new Thread(this);
             t.start();
@@ -96,7 +130,7 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
                 if (!baseAnt.equals(pgBases))
                     tx = new Tx(pgBases.getNombre());
 //                      ModelPg modelPg = new ModelPg();
-                List<PgActivity> pgActivitys = modelPg.getAllActivities(tx);
+                pgActivitys = modelPg.getAllActivities(tx);
                 ObservableList<PgActivity> observableList = FXCollections.observableArrayList(pgActivitys);
                 pid.setCellValueFactory(new PropertyValueFactory<>("pid"));
                 query.setCellValueFactory(new PropertyValueFactory<>("query"));
@@ -127,7 +161,33 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         }
 
     }
+    
+    private void actualizarGrafico() {
+        // Obtener el valor actual (aquí harías tu SELECT a pg_stat_activity / pg_stat_kcache)
+         
+        Long nuevoValorCpu = obtenerMetricaCpu(); 
+        String horaActual = LocalTime.now().format(formatter);
 
+        // Agregar el nuevo punto a la serie
+        series.getData().add(new XYChart.Data<>(horaActual, nuevoValorCpu));
+
+        // Eliminar puntos antiguos si superamos el límite visual (Ventana deslizante)
+        if (series.getData().size() > MAX_DATA_POINTS) {
+            series.getData().remove(0);
+        }
+    }
+    private Long obtenerMetricaCpu() {
+        Long totalCpu=0L;
+        for (PgActivity s: pgActivitys){
+            totalCpu += s.getCpu();
+        }
+        return totalCpu;
+    }
+    public void stop() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+    }
     @FXML
     private void handlerBaseChoice(ActionEvent event) {
         if (t == null) {

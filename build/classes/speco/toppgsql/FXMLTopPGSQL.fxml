@@ -5,10 +5,14 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 
-<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLTopPgSqlController">
+
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLTopPgSqlController">
    <children>
-      <SplitPane dividerPositions="0.07802874743326489" orientation="VERTICAL" prefHeight="489.0" prefWidth="1024.0">
+      <SplitPane dividerPositions="0.07802874743326489" orientation="VERTICAL" prefHeight="489.0" prefWidth="1200.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="1024.0">
                <children>
@@ -19,9 +23,23 @@
                   </HBox>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="1024.0">
+    <GridPane>
+        <columnConstraints>
+        <!-- Columna 0: Ancho fijo de 100px -->
+            <ColumnConstraints prefWidth="1024.0" />
+            <!-- Columna 1: Crece automáticamente si la ventana cambia de tamaño -->
+            <ColumnConstraints prefWidth="100.0"/>
+        </columnConstraints>
+
+        <!-- 2. Definición opcional del comportamiento de las Filas -->
+        <rowConstraints>
+            <RowConstraints prefHeight="200.0"/>
+            <RowConstraints prefHeight="200.0" />
+        </rowConstraints>  
+        <children>
+          <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1024.0">
                <children>
-                  <TableView fx:id="tableView" prefHeight="445.0" prefWidth="1024.0">
+                  <TableView  fx:id="tableView" prefHeight="200.0" prefWidth="1024.0">
                     <columns>
                       <TableColumn fx:id="pid" prefWidth="100.0" text="pid" />
                       <TableColumn fx:id="rolname" prefWidth="100.0" text="user" />
@@ -36,6 +54,27 @@
                   </TableView>
                </children>
             </AnchorPane>
+            <VBox spacing="10" prefWidth="1200" prefHeight="200" GridPane.valignment="BOTTOM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <children>
+                    <!-- Definición del LineChart con su fx:id para manipularlo desde Java -->
+                    <LineChart fx:id="lineChart" title="Rendimiento del Sistema (CPU vs Tiempo)">
+            
+                    <!-- Definición del Eje X -->
+                    <xAxis>
+                        <CategoryAxis label="Tiempo / Hora" />
+                    </xAxis>
+            
+                    <!-- Definición del Eje Y -->
+                    <yAxis>
+                        <NumberAxis label="Uso de CPU (%)" lowerBound="0" upperBound="600" autoRanging="true" />
+                    </yAxis>
+            
+                </LineChart>
+            </children>
+            </VBox>
+            <TextField fx:id="txtNombre" GridPane.valignment="TOP" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        </children>
+        </GridPane>
         </items>
       </SplitPane>
    </children>
