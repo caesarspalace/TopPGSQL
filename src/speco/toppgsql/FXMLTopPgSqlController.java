@@ -111,11 +111,13 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         modelPg = new ModelPg();
         series = new XYChart.Series<>();
         series2 = new XYChart.Series<>();
-        series.setName("Postgres CPU Usage");
-        series2.setName("Postgres IO Usage");
+        series.setName("CPU Usage");
+        series2.setName("IO Usage");
         lineChart.getData().add(series);
         lineChart.getData().add(series2);
+        xAxis.setTickLabelRotation(45);
         //yAxis.setTickUnit(20.0);
+
 
         // 2. Configurar el temporizador (ej. actualizar cada 1 segundo)
         timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {

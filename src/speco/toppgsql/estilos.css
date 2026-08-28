@@ -1,0 +1,23 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 28 ago 2026, 12:00:01
+    Author     : tuxedo
+*/
+
+/* Ajusta el tamaño de la leyenda en JavaFX */
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-radius: 5px; /* Hace los símbolos más limpios */
+}
+
+.chart-legend-item {
+    -fx-text-fill: #333333; /* Asegura que el texto no sea blanco/invisible */
+    -fx-font-size: 11px;
+}

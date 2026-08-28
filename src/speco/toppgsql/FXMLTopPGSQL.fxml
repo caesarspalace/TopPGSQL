@@ -54,19 +54,19 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <VBox spacing="10" prefWidth="1200" prefHeight="200" GridPane.valignment="BOTTOM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <VBox  spacing="10" prefWidth="1200" prefHeight="300" GridPane.valignment="BOTTOM" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <children>
                     <!-- Definición del LineChart con su fx:id para manipularlo desde Java -->
-                    <LineChart fx:id="lineChart" title="Rendimiento del Sistema (CPU vs Tiempo)">
+                    <LineChart stylesheets="@estilos.css" fx:id="lineChart" legendSide="BOTTOM" legendVisible="true" title="Rendimiento del Sistema (CPU vs Tiempo)" >
             
                     <!-- Definición del Eje X -->
                     <xAxis>
-                        <CategoryAxis label="Tiempo / Hora" />
+                        <CategoryAxis fx:id="xAxis" />
                     </xAxis>
             
                     <!-- Definición del Eje Y -->
                     <yAxis>
-                        <NumberAxis label="CPU(%) / IO (KBytes)" TickUnit="20" lowerBound="0" upperBound="600" autoRanging="true" />
+                        <NumberAxis fx:id="yAxis" label="CPU(%) / IO" TickUnit="20" lowerBound="0" upperBound="600" autoRanging="true" />
                     </yAxis>
             
                 </LineChart>
