@@ -86,6 +86,9 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     
     @FXML
     private CategoryAxis xAxis;
+  
+    /*@FXML
+    private NumberAxis yAxis;*/
 
     private XYChart.Series<String, Number> series;
     private XYChart.Series<String, Number> series2;
@@ -112,6 +115,7 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         series2.setName("Postgres IO Usage");
         lineChart.getData().add(series);
         lineChart.getData().add(series2);
+        //yAxis.setTickUnit(20.0);
 
         // 2. Configurar el temporizador (ej. actualizar cada 1 segundo)
         timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
