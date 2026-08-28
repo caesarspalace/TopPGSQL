@@ -88,6 +88,7 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     private CategoryAxis xAxis;
 
     private XYChart.Series<String, Number> series;
+    private XYChart.Series<String, Number> series2;
     private Timeline timeline;
     private final int MAX_DATA_POINTS = 15; // Número de muestras visibles en pantalla
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");  
@@ -106,8 +107,11 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         tx = new Tx(baseId.getSelectionModel().getSelectedItem().getNombre());
         modelPg = new ModelPg();
         series = new XYChart.Series<>();
+        series2 = new XYChart.Series<>();
         series.setName("Postgres CPU Usage");
+        series2.setName("Postgres IO Usage");
         lineChart.getData().add(series);
+        lineChart.getData().add(series2);
 
         // 2. Configurar el temporizador (ej. actualizar cada 1 segundo)
         timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
@@ -165,15 +169,18 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     private void actualizarGrafico() {
         // Obtener el valor actual (aquí harías tu SELECT a pg_stat_activity / pg_stat_kcache)
          
-        Long nuevoValorCpu = obtenerMetricaCpu(); 
+        Long nuevoValorCpu = obtenerMetricaCpu();
+        Long nuevoValorIO = obtenerMetricaIo();
         String horaActual = LocalTime.now().format(formatter);
 
         // Agregar el nuevo punto a la serie
         series.getData().add(new XYChart.Data<>(horaActual, nuevoValorCpu));
+        series2.getData().add(new XYChart.Data<>(horaActual, nuevoValorIO));
 
         // Eliminar puntos antiguos si superamos el límite visual (Ventana deslizante)
         if (series.getData().size() > MAX_DATA_POINTS) {
             series.getData().remove(0);
+            series2.getData().remove(0);
         }
     }
     private Long obtenerMetricaCpu() {
@@ -183,6 +190,14 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         }
         return totalCpu;
     }
+    private Long obtenerMetricaIo() {
+        Long totalIo=0L;
+        for (PgActivity s: pgActivitys){
+            totalIo += (s.getioread() + s.getiowrite())/1024L;
+        }
+        return totalIo;
+    }
+
     public void stop() {
         if (timeline != null) {
             timeline.stop();
