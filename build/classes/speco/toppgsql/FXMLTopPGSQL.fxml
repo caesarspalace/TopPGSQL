@@ -19,6 +19,9 @@
                   <HBox layoutX="2.0" layoutY="5.0" prefHeight="24.0" prefWidth="1024.0">
                      <children>
                         <ComboBox fx:id="baseId" onAction="#handlerBaseChoice" prefWidth="150.0" />
+                        <Button fx:id="killSession" onAction="#handlerKillSession" prefWidth="100.0" text="Kill" />
+                        <Label fx:id="labelspid" text="pid:" prefWidth="30.0"/>
+                        <TextField fx:id="spid" prefWidth="100.0"/>
                      </children>
                   </HBox>
                </children>
@@ -72,7 +75,7 @@
                 </LineChart>
             </children>
             </VBox>
-            <TextField fx:id="txtNombre" GridPane.valignment="TOP" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            
         </children>
         </GridPane>
         </items>

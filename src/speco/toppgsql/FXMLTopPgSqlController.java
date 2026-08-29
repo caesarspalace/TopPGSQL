@@ -25,6 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.animation.KeyFrame;
@@ -43,6 +44,7 @@ import speco.cat.Tx;
 import speco.cat.util.Log;
 import speco.toppgsql.om.ModelPg;
 import speco.toppgsql.om.PgActivity;
+import speco.toppgsql.om.KillSession;
 
 /**
  * FXML Controller class
@@ -73,6 +75,10 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     private TableColumn<PgActivity, Long> ioread;
     @FXML
     private TableColumn<PgActivity, Long> iowrite;
+    @FXML 
+    private Button killSession;
+    @FXML
+    private TextField spid;
     
     Thread t = null;
     private boolean flag = true;
@@ -216,12 +222,25 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
             t.start();
         }
     }
-
+    
+    @FXML 
+    void handlerKillSession(ActionEvent event){
+        KillSession ks = new KillSession();
+        PgBases pgBases = baseId.getSelectionModel().getSelectedItem();
+        Integer pid = 0;
+        if (!spid.getText().equals(""))
+            pid = Integer.valueOf(spid.getText());
+        else{
+            pid = tableView.getSelectionModel().getSelectedItem().getPid();
+            spid.setText(pid.toString());
+        }
+        ks.callKillSession(pid, pgBases.getNombre());         
+    }
     public void run() {
         while (flag) {
             buscarActividades();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (InterruptedException ex) {
                 Log.error(ex);
             }
