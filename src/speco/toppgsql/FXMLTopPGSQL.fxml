@@ -10,9 +10,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLTopPgSqlController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLTopPgSqlController">
    <children>
-      <SplitPane dividerPositions="0.07802874743326489" orientation="VERTICAL" prefHeight="489.0" prefWidth="1200.0">
+      <SplitPane dividerPositions="0.07802874743326489" orientation="VERTICAL" prefHeight="600.0" prefWidth="1200.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="1024.0">
                <children>
@@ -37,7 +37,7 @@
         <!-- 2. Definición opcional del comportamiento de las Filas -->
         <rowConstraints>
             <RowConstraints prefHeight="200.0"/>
-            <RowConstraints prefHeight="200.0" />
+            <RowConstraints prefHeight="350.0" />
         </rowConstraints>  
         <children>
           <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1024.0">
@@ -57,7 +57,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <VBox  spacing="10" prefWidth="1200" prefHeight="300" GridPane.valignment="BOTTOM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <VBox  spacing="10" prefWidth="1200" prefHeight="350" GridPane.valignment="BOTTOM" GridPane.columnIndex="0" GridPane.rowIndex="1">
                 <children>
                     <!-- Definición del LineChart con su fx:id para manipularlo desde Java -->
                     <LineChart stylesheets="@estilos.css" fx:id="lineChart" legendSide="BOTTOM" legendVisible="true" title="Rendimiento del Sistema (CPU vs Tiempo)" >
