@@ -167,6 +167,11 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
                     });
                     return row;
                 });
+                tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    spid.setText(String.valueOf(newSelection.getPid()));
+                }
+                });
                 if (observableList != null && observableList.size() > 0)
                     tableView.setItems(observableList);
                 else 
