@@ -29,9 +29,9 @@
     <GridPane>
         <columnConstraints>
         <!-- Columna 0: Ancho fijo de 100px -->
-            <ColumnConstraints prefWidth="1024.0" />
+            <ColumnConstraints prefWidth="1200.0" />
             <!-- Columna 1: Crece automáticamente si la ventana cambia de tamaño -->
-            <ColumnConstraints prefWidth="100.0"/>
+            
         </columnConstraints>
 
         <!-- 2. Definición opcional del comportamiento de las Filas -->
@@ -40,9 +40,9 @@
             <RowConstraints prefHeight="350.0" />
         </rowConstraints>  
         <children>
-          <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1024.0">
+          <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1200.0">
                <children>
-                  <TableView  fx:id="tableView" prefHeight="200.0" prefWidth="1024.0">
+                  <TableView  fx:id="tableView" prefHeight="200.0" prefWidth="1200.0">
                     <columns>
                       <TableColumn fx:id="pid" prefWidth="100.0" text="pid" />
                       <TableColumn fx:id="rolname" prefWidth="100.0" text="user" />
