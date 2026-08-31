@@ -16,6 +16,11 @@
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/PgActivityFull.java</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/estilos.css</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/KillSession.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/PgStatActivityHistory.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelPgStatActivityHistory.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLHistoryController.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLActivityHistory.fxml</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLPgActivityFullController.java</file>
         </group>
     </open-files>
 </project-private>
