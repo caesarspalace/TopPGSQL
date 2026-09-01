@@ -12,18 +12,74 @@
 
 <AnchorPane id="AnchorPane2" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLHistoryController">
     <children>
-        <TableView  fx:id="tableview2" prefHeight="200.0" prefWidth="1200.0">
-            <columns>
-                <TableColumn fx:id="ts" prefWidth="200.0" text="time" />
-                <TableColumn fx:id="pid2" prefWidth="100.0" text="pid" />
-                <TableColumn fx:id="rolname2" prefWidth="100.0" text="user" />
-                <TableColumn fx:id="waitEventType2" prefWidth="100.0" text="wet" />
-                <TableColumn fx:id="waitEvent2" prefWidth="100.0" text="we" />
-                <TableColumn fx:id="state2" prefWidth="100.0" text="state" />
-                <TableColumn fx:id="cpu2" prefWidth="100.0" text="cpu" />
-                <TableColumn fx:id="query2" prefWidth="224.0" text="query" />
-            </columns>
-        </TableView>
+        <SplitPane dividerPositions="0.07802874743326489" orientation="VERTICAL" prefHeight="600.0" prefWidth="1200.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="1024.0">
+                    <children>
+                        <HBox layoutX="2.0" layoutY="5.0" prefHeight="24.0" prefWidth="1024.0">
+                            <children>
+                                <Label fx:id="lblfechadesde" text="fecha desde:"/>
+                                <TextField fx:id="fechadesde" prefWidth="100.0"/>
+                                <Label fx:id="lblfechahasta" text="fecha hasta:"/>
+                                <TextField fx:id="fechahasta" prefWidth="100.0"/>
+                                <Button fx:id="query" onAction="#handlerquery" prefWidth="100.0" text="buscar" />
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+                <GridPane>
+                    <columnConstraints>
+                        <!-- Columna 0: Ancho fijo de 100px -->
+                        <ColumnConstraints prefWidth="1200.0" />
+                        <!-- Columna 1: Crece automáticamente si la ventana cambia de tamaño -->
+            
+                    </columnConstraints>
+
+                    <!-- 2. Definición opcional del comportamiento de las Filas -->
+                    <rowConstraints>
+                        <RowConstraints prefHeight="200.0"/>
+                        <RowConstraints prefHeight="350.0" />
+                    </rowConstraints>  
+                    <children>
+                        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="1200.0">
+                            <children>
+                                <TableView  fx:id="tableview2" prefHeight="200.0" prefWidth="1200.0">
+                                    <columns>
+                                        <TableColumn fx:id="ts" prefWidth="200.0" text="time" />
+                                        <TableColumn fx:id="pid2" prefWidth="100.0" text="pid" />
+                                        <TableColumn fx:id="rolname2" prefWidth="100.0" text="user" />
+                                        <TableColumn fx:id="waitEventType2" prefWidth="100.0" text="wet" />
+                                        <TableColumn fx:id="waitEvent2" prefWidth="100.0" text="we" />
+                                        <TableColumn fx:id="state2" prefWidth="100.0" text="state" />
+                                        <TableColumn fx:id="cpu2" prefWidth="100.0" text="cpu" />
+                                        <TableColumn fx:id="query2" prefWidth="224.0" text="query" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                        <VBox  spacing="10" prefWidth="1200" prefHeight="350" GridPane.valignment="BOTTOM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <children>
+                                <!-- Definición del LineChart con su fx:id para manipularlo desde Java -->
+                                <LineChart stylesheets="@estilos.css" fx:id="lineChart" legendSide="BOTTOM" legendVisible="true" title="Rendimiento del Sistema (CPU vs Tiempo)" >
+            
+                                    <!-- Definición del Eje X -->
+                                    <xAxis>
+                                        <CategoryAxis fx:id="xAxis" />
+                                    </xAxis>
+            
+                                    <!-- Definición del Eje Y -->
+                                    <yAxis>
+                                        <NumberAxis fx:id="yAxis" label="CPU(%) / IO" TickUnit="20" lowerBound="0" upperBound="600" autoRanging="true" />
+                                    </yAxis>
+            
+                                </LineChart>
+                            </children>
+                        </VBox>
+            
+                    </children>
+                </GridPane>
+            </items>
+        </SplitPane>
               
     </children>
 </AnchorPane>

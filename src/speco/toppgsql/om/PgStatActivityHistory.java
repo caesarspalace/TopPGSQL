@@ -1,7 +1,7 @@
 package speco.toppgsql.om;
 
 
-import speco.cat.om.Om;
+import speco.cat.om.Vom;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.sql.Clob;
 import java.sql.Blob;
 /** TYPEADO POR EL GOMO */
-public class PgStatActivityHistory extends Om implements Serializable {
+public class PgStatActivityHistory extends Vom implements Serializable {
 
     private Timestamp snapshot_time = null;
     private Integer pid = null;
@@ -25,11 +25,12 @@ public class PgStatActivityHistory extends Om implements Serializable {
     private String query = null;
 
     public PgStatActivityHistory() {
+        setSelect("min(snapshot_time) as snapshot_time,pid,usename,datname,state,wait_event_type,wait_event,((sum(cpu_system_seconds)/count(*))+(sum(cpu_user_seconds)/count(*)))/(count(*)*60) as cpu, sum(cpu_user_seconds)/count(*) as cpu_user_seconds,sum(cpu_system_seconds)/count(*) as cpu_system_seconds, query_id,query");
         setPk(null);
-        setSqlRoi("true");
         setFrom("pg_stat_activity_history");
         setWhere(null);
-        setOrderBy(null);
+        setOrderBy("snapshot_time desc");
+        setGroupBy("pid,usename,datname,state,wait_event_type,wait_event,query_id,query");
     }
 
     public Timestamp getSnapshot_time() {
@@ -93,6 +94,20 @@ public class PgStatActivityHistory extends Om implements Serializable {
     }
 
     public void setCpu_user_seconds(Float cpu_user_seconds) {
+        this.cpu_user_seconds = cpu_user_seconds;
+    }
+    public Float getCpu() {
+        return cpu_user_seconds;
+    }
+
+    public void setCpu(Float cpu_user_seconds) {
+        this.cpu_user_seconds = cpu_user_seconds;
+    }
+    public Float getcpu() {
+        return cpu_user_seconds;
+    }
+
+    public void setcpu(Float cpu_user_seconds) {
         this.cpu_user_seconds = cpu_user_seconds;
     }
 

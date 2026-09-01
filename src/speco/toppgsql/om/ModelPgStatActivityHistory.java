@@ -16,16 +16,30 @@ import java.util.List;
 import speco.cat.Rdbms;
 import speco.cat.Tx;
 import speco.cat.util.Log;
+import java.sql.Timestamp;
 
 public class ModelPgStatActivityHistory{
 	
-	public List<PgStatActivityHistory> retriveAllPgStatActivityHistory(Integer id, Tx tx) throws Exception	{
+	public List<PgStatActivityHistory> retriveAllPgStatActivityHistory(Tx tx) throws Exception	{
 	PgStatActivityHistory pgstatactivityhistory = new PgStatActivityHistory();
 	Object[] argumentos = null;
 	List<PgStatActivityHistory> listaPgStatActivityHistory = new ArrayList<PgStatActivityHistory>(15);
 	tx.begin();
 	tx.setPagesize(pgstatactivityhistory,150);
 	pgstatactivityhistory.setWhere(null);
+	pgstatactivityhistory.setOrderBy(null);
+	listaPgStatActivityHistory = tx.select(tx,pgstatactivityhistory,argumentos,listaPgStatActivityHistory);
+	tx.end();
+        return listaPgStatActivityHistory;
+	}
+
+      	public List<PgStatActivityHistory> retriveTsPgStatActivityHistory(Timestamp tsd, Timestamp tsh, Tx tx) throws Exception	{
+	PgStatActivityHistory pgstatactivityhistory = new PgStatActivityHistory();
+	Object[] argumentos = {tsd,tsh};
+	List<PgStatActivityHistory> listaPgStatActivityHistory = new ArrayList<PgStatActivityHistory>(15);
+	tx.begin();
+	tx.setPagesize(pgstatactivityhistory,150);
+	pgstatactivityhistory.setWhere("snapshot_time > ? and snapshot_time <= ?");
 	pgstatactivityhistory.setOrderBy(null);
 	listaPgStatActivityHistory = tx.select(tx,pgstatactivityhistory,argumentos,listaPgStatActivityHistory);
 	tx.end();

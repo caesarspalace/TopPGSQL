@@ -71,7 +71,22 @@ public class FXMLHistoryController implements Initializable{
     private TableColumn<PgStatActivityHistory, String> query2;
     @FXML
     private TableColumn<PgStatActivityHistory, Float> cpu2;
-   
+    @FXML
+    private TextField fechadesde;
+    @FXML
+    private TextField fechahasta;
+    @FXML 
+    private Button query;
+    
+    @FXML
+    private LineChart<String, Number> lineChart;
+
+    @FXML
+    private CategoryAxis xAxis;
+    private String base;
+    /*@FXML
+    private NumberAxis yAxis;*/
+    private XYChart.Series<String, Number> series;
     private Tx tx;
     private ModelPgStatActivityHistory modelPg;
     private List<PgStatActivityHistory> pgActivitys;
@@ -81,14 +96,17 @@ public class FXMLHistoryController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         modelPg = new ModelPgStatActivityHistory();
-       
+        series = new XYChart.Series<>();
+        series.setName("CPU Usage");
+        lineChart.getData().add(series);
+        xAxis.setTickLabelRotation(45);   
     }
 
     public void buscarActividades(String base) {
         try {
                 
                 tx = new Tx(base);
-                pgActivitys = modelPg.retriveAllPgStatActivityHistory(0, tx);
+                pgActivitys = modelPg.retriveAllPgStatActivityHistory(tx);
                 ObservableList<PgStatActivityHistory> observableList = FXCollections.observableArrayList(pgActivitys);
                 ts.setCellValueFactory(new PropertyValueFactory<>("snapshot_time"));
                 pid2.setCellValueFactory(new PropertyValueFactory<>("pid"));
@@ -97,27 +115,56 @@ public class FXMLHistoryController implements Initializable{
                 waitEvent2.setCellValueFactory(new PropertyValueFactory<>("wait_event"));
                 waitEventType2.setCellValueFactory(new PropertyValueFactory<>("wait_event_type"));
                 state2.setCellValueFactory(new PropertyValueFactory<>("state"));
-                cpu2.setCellValueFactory(new PropertyValueFactory<>("cpu_user_seconds"));
+                cpu2.setCellValueFactory(new PropertyValueFactory<>("cpu"));
                 tableview2.setItems(observableList);
-               // obtenerMetricaCpu();
+                obtenerMetricaCpu();
         } catch (Exception ex) {
             Log.error(ex);
         }
 
     }
     
+    public void buscarTsActividades(Timestamp tsd, Timestamp tsh, String base) {
+        try {
+                
+                tx = new Tx(base);
+                pgActivitys = modelPg.retriveTsPgStatActivityHistory(tsd,tsh,tx);
+                ObservableList<PgStatActivityHistory> observableList = FXCollections.observableArrayList(pgActivitys);
+                ts.setCellValueFactory(new PropertyValueFactory<>("snapshot_time"));
+                pid2.setCellValueFactory(new PropertyValueFactory<>("pid"));
+                query2.setCellValueFactory(new PropertyValueFactory<>("query"));
+                rolname2.setCellValueFactory(new PropertyValueFactory<>("usename"));
+                waitEvent2.setCellValueFactory(new PropertyValueFactory<>("wait_event"));
+                waitEventType2.setCellValueFactory(new PropertyValueFactory<>("wait_event_type"));
+                state2.setCellValueFactory(new PropertyValueFactory<>("state"));
+                cpu2.setCellValueFactory(new PropertyValueFactory<>("cpu"));
+                tableview2.setItems(observableList);
+                obtenerMetricaCpu();
+        } catch (Exception ex) {
+            Log.error(ex);
+        }
+
+    }
  
-    /*private Float obtenerMetricaCpu() {
-        Float totalCpu=0.0;
+    private Float obtenerMetricaCpu() {
+        Float totalCpu=0F;
         for (PgStatActivityHistory s: pgActivitys){
-            totalCpu += s.getCpu_system_seconds() + s.getCpu_user_seconds();
-           // series.getData().add(new XYChart.Data<>(s.getSnapshot_time().toString(), totalCpu));
+            totalCpu += s.getCpu();
+            series.getData().add(new XYChart.Data<>(s.getSnapshot_time().toString(), totalCpu));
         }
         return totalCpu;
-    }*/
+    }
     
     public void showActivity(String base){
+        this.base=base;
         buscarActividades(base);
+    }
+    
+    @FXML
+    private void handlerquery(ActionEvent event){
+        Timestamp tsd = Timestamp.valueOf(fechadesde.getText());
+        Timestamp tsh = Timestamp.valueOf(fechahasta.getText());
+        buscarTsActividades(tsd, tsh, this.base);
     }
     
 }
