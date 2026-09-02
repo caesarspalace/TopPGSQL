@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLExplainHistoryController">
+    <children>
+        <VBox fx:id="Vbox" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <HBox prefHeight="26.0" prefWidth="600.0">
+                    <children>
+                        <TextField fx:id="usename" editable="false"/>
+                        <TextField fx:id="Pid" editable="false"/>
+                    </children>
+                </HBox>
+                <HBox prefHeight="26.0" prefWidth="600.0">
+                    <children>
+                        <TextField fx:id="wait_event_type" editable="false"/>
+                        <TextField fx:id="wait_event" editable="false"/>
+                    </children>
+                </HBox>
+
+                <TextArea fx:id="query" prefHeight="160.0" prefWidth="600.0" editable="false"/>
+                <TextArea fx:id="explain" prefHeight="160.0" prefWidth="600.0" editable="false"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

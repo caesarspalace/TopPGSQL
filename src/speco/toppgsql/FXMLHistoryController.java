@@ -57,6 +57,8 @@ import speco.cat.util.Log;
 import speco.toppgsql.om.ModelPgStatActivityHistory;
 import speco.toppgsql.om.PgStatActivityHistory;
 import java.sql.Timestamp;
+import speco.toppgsql.om.ModelPg;
+import speco.toppgsql.om.PgActivity;
 
 /**
  *
@@ -104,6 +106,7 @@ public class FXMLHistoryController implements Initializable{
     private XYChart.Series<String, Number> series;
     private Tx tx;
     private ModelPgStatActivityHistory modelPg;
+    private ModelPg modelPg2;
     private List<PgStatActivityHistory> pgActivitys;
     /**
      * Initializes the controller class.
@@ -111,6 +114,7 @@ public class FXMLHistoryController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         modelPg = new ModelPgStatActivityHistory();
+        modelPg2 = new ModelPg();
         series = new XYChart.Series<>();
         series.setName("CPU Usage");
         lineChart.getData().add(series);
@@ -142,8 +146,45 @@ public class FXMLHistoryController implements Initializable{
                 cpu2.setCellValueFactory(new PropertyValueFactory<>("cpu"));
                 ioread.setCellValueFactory(new PropertyValueFactory<>("io_reads_bytes"));
                 iowrite.setCellValueFactory(new PropertyValueFactory<>("io_writes_bytes"));
-                tableview2.setItems(observableList);
+                
+                tableview2.setRowFactory(tv -> {
+                    TableRow<PgStatActivityHistory> row = new TableRow<>();
 
+                    row.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                            mostrarActivity(row.getItem().getPid(),
+                                    base,
+                                    row.getItem().getUsename(),
+                                    row.getItem().getWait_event(),
+                                    row.getItem().getWait_event_type(),
+                                    row.getItem().getQuery(),
+                                    modelPg2);
+                        }
+                    });
+                    return row;
+                });
+                tableview2.setItems(observableList);
+    }
+    private void mostrarActivity(Integer pid, String base, 
+            String usename, String wait_event_type, 
+            String wait_event, String query,
+            ModelPg modelPg)  {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(TopPGSQL.class.getResource("FXMLExplainHistory.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            FXMLExplainHistoryController fXMLexplainHistoryController = fxmlLoader.getController();
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+            stage.setTitle("Activity");
+            stage.show();
+            fXMLexplainHistoryController.showActivity(pid, base,usename,wait_event_type, 
+            wait_event, query,
+             modelPg);
+        } catch (IOException e) {
+        }
     }
     
     public void buscarTsActividades(Timestamp tsd, Timestamp tsh, String base) {
