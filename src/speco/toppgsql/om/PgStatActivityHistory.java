@@ -43,9 +43,16 @@ public class PgStatActivityHistory extends Vom implements Serializable {
     private Float cpu_system_seconds = null;
     private Long query_id = null;
     private String query = null;
+    private Float io_reads_bytes = null;
+    private Float io_writes_bytes = null;
+    private Float shared_blks_hit = null;
+    private Float shared_blks_read = null;
+    private Float shared_blks_dirtied = null;
+    private Float temp_blks_read = null;
+    private Float temp_blks_written = null;
 
     public PgStatActivityHistory() {
-        setSelect("min(snapshot_time) as snapshot_time,pid,usename,datname,state,wait_event_type,wait_event,((sum(cpu_system_seconds)/count(*))+(sum(cpu_user_seconds)/count(*)))/(count(*)*60) as cpu, sum(cpu_user_seconds)/count(*) as cpu_user_seconds,sum(cpu_system_seconds)/count(*) as cpu_system_seconds, query_id,query");
+        setSelect("sum(temp_blks_written)/count(*) as temp_blks_written,sum(temp_blks_read)/count(*) as temp_blks_read, sum(shared_blks_dirtied)/count(*) as shared_blks_dirtied, sum(shared_blks_read)/count(*) as shared_blks_read, sum(shared_blks_hit)/count(*) as shared_blks_hit, sum(io_reads_bytes)/count(*) as io_reads_bytes ,sum(io_writes_bytes)/count(*) as io_writes_bytes,min(snapshot_time) as snapshot_time,pid,usename,datname,state,wait_event_type,wait_event,((sum(cpu_system_seconds)/count(*))+(sum(cpu_user_seconds)/count(*)))/(count(*)*60) as cpu, sum(cpu_user_seconds)/count(*) as cpu_user_seconds,sum(cpu_system_seconds)/count(*) as cpu_system_seconds, query_id,query");
         setPk(null);
         setFrom("pg_stat_activity_history");
         setWhere(null);
@@ -53,6 +60,64 @@ public class PgStatActivityHistory extends Vom implements Serializable {
         setGroupBy("pid,usename,datname,state,wait_event_type,wait_event,query_id,query");
     }
 
+    public Float getIo_reads_bytes() {
+        return io_reads_bytes;
+    }
+
+    public void setIo_reads_bytes(Float io_reads_bytes) {
+        this.io_reads_bytes = io_reads_bytes;
+    }
+
+    public Float getIo_writes_bytes() {
+        return io_writes_bytes;
+    }
+
+    public void setIo_writes_bytes(Float io_writes_bytes) {
+        this.io_writes_bytes = io_writes_bytes;
+    }
+
+    public Float getShared_blks_hit() {
+        return shared_blks_hit;
+    }
+
+    public void setShared_blks_hit(Float shared_blks_hit) {
+        this.shared_blks_hit = shared_blks_hit;
+    }
+
+    public Float getShared_blks_read() {
+        return shared_blks_read;
+    }
+
+    public void setShared_blks_read(Float shared_blks_read) {
+        this.shared_blks_read = shared_blks_read;
+    }
+
+    public Float getShared_blks_dirtied() {
+        return shared_blks_dirtied;
+    }
+
+    public void setShared_blks_dirtied(Float shared_blks_dirtied) {
+        this.shared_blks_dirtied = shared_blks_dirtied;
+    }
+
+    public Float getTemp_blks_read() {
+        return temp_blks_read;
+    }
+
+    public void setTemp_blks_read(Float temp_blks_read) {
+        this.temp_blks_read = temp_blks_read;
+    }
+
+    public Float getTemp_blks_written() {
+        return temp_blks_written;
+    }
+
+    public void setTemp_blks_written(Float temp_blks_written) {
+        this.temp_blks_written = temp_blks_written;
+    }
+ 
+    
+    
     public Timestamp getSnapshot_time() {
         return snapshot_time;
     }
@@ -243,4 +308,60 @@ public class PgStatActivityHistory extends Vom implements Serializable {
         this.query = query;
     }
 
+    public Float getio_reads_bytes() {
+        return io_reads_bytes;
+    }
+
+    public void setio_reads_bytes(Float io_reads_bytes) {
+        this.io_reads_bytes = io_reads_bytes;
+    }
+
+    public Float getio_writes_bytes() {
+        return io_writes_bytes;
+    }
+
+    public void setio_writes_bytes(Float io_writes_bytes) {
+        this.io_writes_bytes = io_writes_bytes;
+    }
+
+    public Float getshared_blks_hit() {
+        return shared_blks_hit;
+    }
+
+    public void setshared_blks_hit(Float shared_blks_hit) {
+        this.shared_blks_hit = shared_blks_hit;
+    }
+
+    public Float getshared_blks_read() {
+        return shared_blks_read;
+    }
+
+    public void setshared_blks_read(Float shared_blks_read) {
+        this.shared_blks_read = shared_blks_read;
+    }
+
+    public Float getshared_blks_dirtied() {
+        return shared_blks_dirtied;
+    }
+
+    public void setshared_blks_dirtied(Float shared_blks_dirtied) {
+        this.shared_blks_dirtied = shared_blks_dirtied;
+    }
+
+    public Float gettemp_blks_read() {
+        return temp_blks_read;
+    }
+
+    public void settemp_blks_read(Float temp_blks_read) {
+        this.temp_blks_read = temp_blks_read;
+    }
+
+    public Float gettemp_blks_written() {
+        return temp_blks_written;
+    }
+
+    public void settemp_blks_written(Float temp_blks_written) {
+        this.temp_blks_written = temp_blks_written;
+    }
+ 
 }

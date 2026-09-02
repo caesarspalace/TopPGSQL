@@ -52,6 +52,8 @@
                                         <TableColumn fx:id="waitEvent2" prefWidth="100.0" text="we" />
                                         <TableColumn fx:id="state2" prefWidth="100.0" text="state" />
                                         <TableColumn fx:id="cpu2" prefWidth="100.0" text="cpu" />
+                                        <TableColumn fx:id="ioread" prefWidth="100.0" text="ioread" />
+                                        <TableColumn fx:id="iowrite" prefWidth="100.0" text="iowrite" />
                                         <TableColumn fx:id="query2" prefWidth="224.0" text="query" />
                                     </columns>
                                 </TableView>

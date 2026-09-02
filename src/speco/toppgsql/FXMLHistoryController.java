@@ -83,6 +83,10 @@ public class FXMLHistoryController implements Initializable{
     @FXML
     private TableColumn<PgStatActivityHistory, Float> cpu2;
     @FXML
+    private TableColumn<PgStatActivityHistory, Float> ioread;
+    @FXML
+    private TableColumn<PgStatActivityHistory, Float> iowrite;
+    @FXML
     private TextField fechadesde;
     @FXML
     private TextField fechahasta;
@@ -118,7 +122,16 @@ public class FXMLHistoryController implements Initializable{
                 
                 tx = new Tx(base);
                 pgActivitys = modelPg.retriveAllPgStatActivityHistory(tx);
-                ObservableList<PgStatActivityHistory> observableList = FXCollections.observableArrayList(pgActivitys);
+                cargatabla();
+                obtenerMetricaCpu();
+        } catch (Exception ex) {
+            Log.error(ex);
+        }
+
+    }
+    
+    private void cargatabla(){
+                 ObservableList<PgStatActivityHistory> observableList = FXCollections.observableArrayList(pgActivitys);
                 ts.setCellValueFactory(new PropertyValueFactory<>("snapshot_time"));
                 pid2.setCellValueFactory(new PropertyValueFactory<>("pid"));
                 query2.setCellValueFactory(new PropertyValueFactory<>("query"));
@@ -127,11 +140,9 @@ public class FXMLHistoryController implements Initializable{
                 waitEventType2.setCellValueFactory(new PropertyValueFactory<>("wait_event_type"));
                 state2.setCellValueFactory(new PropertyValueFactory<>("state"));
                 cpu2.setCellValueFactory(new PropertyValueFactory<>("cpu"));
+                ioread.setCellValueFactory(new PropertyValueFactory<>("io_reads_bytes"));
+                iowrite.setCellValueFactory(new PropertyValueFactory<>("io_writes_bytes"));
                 tableview2.setItems(observableList);
-                obtenerMetricaCpu();
-        } catch (Exception ex) {
-            Log.error(ex);
-        }
 
     }
     
@@ -140,16 +151,7 @@ public class FXMLHistoryController implements Initializable{
                 
                 tx = new Tx(base);
                 pgActivitys = modelPg.retriveTsPgStatActivityHistory(tsd,tsh,tx);
-                ObservableList<PgStatActivityHistory> observableList = FXCollections.observableArrayList(pgActivitys);
-                ts.setCellValueFactory(new PropertyValueFactory<>("snapshot_time"));
-                pid2.setCellValueFactory(new PropertyValueFactory<>("pid"));
-                query2.setCellValueFactory(new PropertyValueFactory<>("query"));
-                rolname2.setCellValueFactory(new PropertyValueFactory<>("usename"));
-                waitEvent2.setCellValueFactory(new PropertyValueFactory<>("wait_event"));
-                waitEventType2.setCellValueFactory(new PropertyValueFactory<>("wait_event_type"));
-                state2.setCellValueFactory(new PropertyValueFactory<>("state"));
-                cpu2.setCellValueFactory(new PropertyValueFactory<>("cpu"));
-                tableview2.setItems(observableList);
+                cargatabla();
                 obtenerMetricaCpu();
         } catch (Exception ex) {
             Log.error(ex);
