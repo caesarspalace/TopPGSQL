@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 import java.sql.Clob;
 import java.sql.Blob;
 /** TYPEADO POR EL GOMO */
+/**
+ *
+ * @author Adrian Tabak
+ */
 public class VwaitEvents extends Om implements Serializable{
 	private Integer  pid= null;
 	private String usuario= null;

@@ -7,7 +7,7 @@ package speco.toppgsql.om;
 import speco.cat.Tx;
 /**
  *
- * @author tuxedo
+ * @author Adrian Tabak
  */
 public class KillSession {
    

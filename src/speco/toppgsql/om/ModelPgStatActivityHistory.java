@@ -6,11 +6,9 @@ package speco.toppgsql.om;
 *
 */
 /**
-* Model del om PgStatActivityHistory
-*
-* @author  Adrianto
-* @version $Id$
-*/
+ *
+ * @author Adrian Tabak
+ */
 import java.util.ArrayList;
 import java.util.List;
 import speco.cat.Rdbms;

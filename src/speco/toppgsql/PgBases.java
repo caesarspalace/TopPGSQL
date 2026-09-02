@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * @autor: Adrian Tabak
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package speco.toppgsql;
@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author adrian
+ * @author Adrian Tabak
  */
 public class PgBases {
 

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author adrian
+ * @author Adrian Tabak
  */
 public class TopPGSQL extends Application {
     public static  Stage owner;

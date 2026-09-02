@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 import java.sql.Clob;
 import java.sql.Blob;
 /** TYPEADO POR EL GOMO */
+/**
+ *
+ * @author Adrian Tabak
+ */
 public class VcpuTime extends Om implements Serializable{
 	private String  tipo_espera= null;
 	private Integer  total_sesiones= null;

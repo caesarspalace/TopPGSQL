@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * @autor: Adrian Tabak
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package speco.toppgsql;
@@ -47,9 +47,8 @@ import speco.toppgsql.om.PgStatActivityHistory;
 import java.sql.Timestamp;
 
 /**
- * FXML Controller class
  *
- * @author adrian
+ * @author Adrian Tabak
  */
 public class FXMLHistoryController implements Initializable{
 
@@ -148,6 +147,9 @@ public class FXMLHistoryController implements Initializable{
  
     private Float obtenerMetricaCpu() {
         Float totalCpu=0F;
+        for (int i=0; i < series.getData().size(); i++){
+            series.getData().remove(0);
+        }
         for (PgStatActivityHistory s: pgActivitys){
             totalCpu += s.getCpu();
             series.getData().add(new XYChart.Data<>(s.getSnapshot_time().toString(), totalCpu));
@@ -165,6 +167,7 @@ public class FXMLHistoryController implements Initializable{
         Timestamp tsd = Timestamp.valueOf(fechadesde.getText());
         Timestamp tsh = Timestamp.valueOf(fechahasta.getText());
         buscarTsActividades(tsd, tsh, this.base);
+        
     }
     
 }

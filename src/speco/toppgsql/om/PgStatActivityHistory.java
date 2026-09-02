@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 import java.sql.Clob;
 import java.sql.Blob;
 /** TYPEADO POR EL GOMO */
+/**
+ *
+ * @author Adrian Tabak
+ */
 public class PgStatActivityHistory extends Vom implements Serializable {
 
     private Timestamp snapshot_time = null;

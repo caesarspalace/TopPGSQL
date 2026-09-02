@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * @autor: Adrian Tabak
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package speco.toppgsql;
@@ -48,9 +48,8 @@ import speco.toppgsql.om.PgActivity;
 import speco.toppgsql.om.KillSession;
 
 /**
- * FXML Controller class
  *
- * @author adrian
+ * @author Adrian Tabak
  */
 public class FXMLTopPgSqlController implements Initializable, Runnable {
 
