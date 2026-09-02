@@ -21,6 +21,8 @@
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLHistoryController.java</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLActivityHistory.fxml</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLPgActivityFullController.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/PgBases.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/ReadProperties.java</file>
         </group>
     </open-files>
 </project-private>
