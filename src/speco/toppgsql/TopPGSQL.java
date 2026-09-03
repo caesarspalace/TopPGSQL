@@ -33,6 +33,7 @@ public class TopPGSQL extends Application {
          owner=stage;
         Parent root = FXMLLoader.load(getClass().getResource("FXMLTopPGSQL.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/speco/toppgsql/estilos.css").toExternalForm());
         stage.setTitle("TopPGSQL");
         stage.setScene(scene);
         stage.show();
