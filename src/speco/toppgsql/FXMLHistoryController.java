@@ -16,14 +16,10 @@
 */
 package speco.toppgsql;
 
-import com.sun.javafx.scene.control.Properties;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,33 +28,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.util.Duration;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import speco.cat.Tx;
 import speco.cat.util.Log;
 import speco.toppgsql.om.ModelPgStatActivityHistory;
 import speco.toppgsql.om.PgStatActivityHistory;
 import java.sql.Timestamp;
 import speco.toppgsql.om.ModelPg;
-import speco.toppgsql.om.PgActivity;
+
 
 /**
  *
@@ -192,6 +177,7 @@ public class FXMLHistoryController implements Initializable{
                 
                 tx = new Tx(base);
                 pgActivitys = modelPg.retriveTsPgStatActivityHistory(tsd,tsh,tx);
+                borrarGrafico();
                 cargatabla();
                 obtenerMetricaCpu();
         } catch (Exception ex) {
@@ -200,11 +186,16 @@ public class FXMLHistoryController implements Initializable{
 
     }
  
+    private void borrarGrafico(){
+        lineChart.getData().remove(series);
+        series = new XYChart.Series<>();
+        series.setName("CPU Usage");
+        lineChart.getData().add(series);
+        
+
+    }
     private Float obtenerMetricaCpu() {
         Float totalCpu=0F;
-        for (int i=0; i < series.getData().size(); i++){
-            series.getData().remove(0);
-        }
         for (PgStatActivityHistory s: pgActivitys){
             totalCpu += s.getCpu();
             series.getData().add(new XYChart.Data<>(s.getSnapshot_time().toString(), totalCpu));

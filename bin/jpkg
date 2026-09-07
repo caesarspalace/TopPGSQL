@@ -1,0 +1,13 @@
+export JAVA_HOME=/opt/jdk25
+export PATH=$JAVA_HOME/bin:$PATH
+rm -rf /home/tuxedo/projectos/dist
+jpackage \
+  --type app-image \
+  --name TopPGSQL \
+  --input /home/tuxedo/projectos/TopPGSQL/dist \
+  --main-jar TopPGSQL.jar \
+  --main-class speco.toppgsql.TopPGSQL \
+  --java-options "-Djava.library.path=/home/tuxedo/projectos/javafx-sdk-25.0.2/lib:/home/tuxedo/projectos/dist/TopPGSQL/lib/app:/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib --enable-native-access=javafx.graphics -Dprism.verbose=true -Ddebug=2 -Dcat.log=toppgql.log -Dcat.file=/home/tuxedo/projectos/TopPGSQL/conf/cat.postgres" \
+  --module-path /home/tuxedo/projectos/javafx-sdk-25.0.2/lib \
+  --add-modules java.sql,javafx.swing,javafx.fxml,javafx.controls,javafx.base,javafx.graphics,javafx.media,javafx.web,java.management \
+  --dest /home/tuxedo/projectos/dist

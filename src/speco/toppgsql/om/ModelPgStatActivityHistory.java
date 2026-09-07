@@ -35,7 +35,7 @@ public class ModelPgStatActivityHistory{
 	tx.begin();
 	tx.setPagesize(pgstatactivityhistory,150);
 	pgstatactivityhistory.setWhere(null);
-	pgstatactivityhistory.setOrderBy(null);
+	pgstatactivityhistory.setOrderBy("snapshot_time desc");
 	listaPgStatActivityHistory = tx.select(tx,pgstatactivityhistory,argumentos,listaPgStatActivityHistory);
 	tx.end();
         return listaPgStatActivityHistory;
@@ -48,7 +48,7 @@ public class ModelPgStatActivityHistory{
 	tx.begin();
 	tx.setPagesize(pgstatactivityhistory,150);
 	pgstatactivityhistory.setWhere("snapshot_time > ? and snapshot_time <= ?");
-	pgstatactivityhistory.setOrderBy(null);
+	pgstatactivityhistory.setOrderBy("snapshot_time desc");
 	listaPgStatActivityHistory = tx.select(tx,pgstatactivityhistory,argumentos,listaPgStatActivityHistory);
 	tx.end();
         return listaPgStatActivityHistory;
