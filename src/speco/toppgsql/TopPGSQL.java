@@ -34,7 +34,7 @@ public class TopPGSQL extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLTopPGSQL.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/speco/toppgsql/estilos.css").toExternalForm());
-        stage.setTitle("TopPGSQL");
+        stage.setTitle("SQL command Center for Postgresql");
         stage.setScene(scene);
         stage.show();
     }
