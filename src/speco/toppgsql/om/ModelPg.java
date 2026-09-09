@@ -13,7 +13,7 @@
     Debería haber recibido una copia de la Licencia Pública General GNU
     junto con este programa. En caso contrario, consulte
     <https://gnu.org>.
-*/
+ */
 package speco.toppgsql.om;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class ModelPg {
         try {
             Object[] argumentos = {sql};
             tx.begin();
-            respuesta =  tx.call(tx, "{ ? = call explain(?) }", argumentos, respuesta);
+            respuesta = tx.call(tx, "{ ? = call explain(?) }", argumentos, respuesta);
             tx.commit();
         } catch (Exception ex) {
             Log.error(ex);
@@ -70,4 +70,43 @@ public class ModelPg {
         return respuesta;
     }
 
+    public Long getHypopg(Tx tx, String idx) {
+        Pghypopg pghypopg = new Pghypopg();
+        try {
+            Object[] argumentos = null;
+            tx.begin();
+            tx.setPagesize(pghypopg, 1);
+            pghypopg.setFrom("hypopg_create_index('"+idx+"')");
+            pghypopg = (Pghypopg) tx.select(tx, pghypopg, argumentos);
+            tx.commit();
+        } catch (Exception ex) {
+            Log.error(ex);
+        } finally {
+            try {
+                tx.end();
+            } catch (Exception ex) {
+                Log.error(ex);
+            }
+        }
+        return pghypopg.getindexrelid();
+    }
+
+    public Object getHypopgReset(Tx tx) {
+        Object respuesta = new Object();
+        try {
+            Object[] argumentos = null;
+            tx.begin();
+            tx.call(tx, "{ call hypopg_reset() }", argumentos);
+            tx.commit();
+        } catch (Exception ex) {
+            Log.error(ex);
+        } finally {
+            try {
+                tx.end();
+            } catch (Exception ex) {
+                Log.error(ex);
+            }
+        }
+        return respuesta;
+    }
 }

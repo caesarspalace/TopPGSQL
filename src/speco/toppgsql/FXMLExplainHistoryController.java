@@ -18,11 +18,13 @@ package speco.toppgsql;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import speco.cat.Tx;
 import speco.cat.util.Log;
@@ -61,6 +63,12 @@ public class FXMLExplainHistoryController implements Initializable {
     private TextArea query;
     @FXML
     private TextArea explain;
+    @FXML
+    private TextArea index;
+    @FXML
+    private Button botonIdx;
+    private ModelPg modelPg;
+    private String base;
 
     /**
      * Initializes the controller class.
@@ -75,6 +83,7 @@ public class FXMLExplainHistoryController implements Initializable {
             String wait_event, String query,
             ModelPg modelPg) {
         try {
+            this.base = base;
             Tx tx = new Tx(base);
             this.usename.setText(usename);
             this.Pid.setText(pid.toString());
@@ -83,9 +92,20 @@ public class FXMLExplainHistoryController implements Initializable {
             this.query.setWrapText(true);
             this.query.setText(query);
             this.explain.setText(String.valueOf(modelPg.getExplain(tx, query)));
-            
+            this.modelPg  = modelPg;
         } catch (Exception ex) {
             Log.error(ex);
         }
     }
+    public void handlerbotonIdx(ActionEvent event) {
+        try {
+            Tx tx = new Tx(base);
+            Long respuesta = modelPg.getHypopg(tx, index.getText());
+            this.explain.setText(String.valueOf(modelPg.getExplain(tx, query.getText())));
+            modelPg.getHypopgReset(tx);
+        } catch (Exception ex) {
+            Log.error(ex);
+        }
+    }
+
 }

@@ -20,9 +20,10 @@
                     <children>
                         <TextField fx:id="wait_event_type" editable="false"/>
                         <TextField fx:id="wait_event" editable="false"/>
+                        <Button fx:id="botonIdx" text="hypopg" onAction="#handlerbotonIdx" />
                     </children>
                 </HBox>
-
+                <TextArea fx:id="index" prefHeight="160.0" prefWidth="600.0" editable="true"/>
                 <TextArea fx:id="query" prefHeight="160.0" prefWidth="600.0" editable="false"/>
                 <TextArea fx:id="explain" prefHeight="160.0" prefWidth="600.0" editable="false"/>
             </children>
