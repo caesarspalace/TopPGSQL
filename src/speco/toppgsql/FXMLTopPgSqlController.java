@@ -270,6 +270,12 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         mostrarActivityHistory(pgBases.getNombre());
     }
     
+     @FXML
+    void handlerExplain(ActionEvent event){
+        PgBases pgBases = baseId.getSelectionModel().getSelectedItem();
+        mostrarExplain(pgBases.getNombre(),modelPg);
+    }
+    
     public void run() {
         while (flag) {
             buscarActividades();
@@ -335,6 +341,32 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         stage.setScene(new Scene(root));
         stage.show();
         controller.showActivity(base);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
+    private void mostrarExplain(String base, ModelPg modelPg) {
+    try {
+        // Opción A: Usar ruta absoluta desde la raíz de resources / classpath
+        URL fxmlUrl = getClass().getResource("/speco/toppgsql/FXMLExplain.fxml");
+        
+        // Validación de seguridad para detectar si el recurso no existe antes de instanciar
+        if (fxmlUrl == null) {
+            System.err.println("Error: No se encontró FXMLExplain.fxml en /speco/toppgsql/");
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Parent root = loader.load();
+
+        // Opcional: Obtener el controlador si necesitas pasarle datos
+        FXMLExplainController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setTitle("Explain");
+        stage.setScene(new Scene(root));
+        stage.show();
+        controller.showActivity(base,modelPg);
     } catch (IOException e) {
         e.printStackTrace();
     }
