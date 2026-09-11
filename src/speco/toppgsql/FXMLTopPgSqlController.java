@@ -93,6 +93,8 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
     private Button ASH;
     @FXML
     private TextField spid;
+    @FXML
+    private TextField timeout;
 
     Thread t = null;
     private boolean flag = true;
@@ -120,6 +122,7 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        timeout.setText("5");
         ReadProperties readProperties = new ReadProperties();
         ObservableList<PgBases> observableList = FXCollections.observableArrayList(readProperties.getBases());
         baseId.setItems(observableList);
@@ -135,10 +138,12 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         lineChart.getData().add(series);
         lineChart.getData().add(series2);
         xAxis.setTickLabelRotation(45);
+        
         //yAxis.setTickUnit(20.0);
 
         // 2. Configurar el temporizador (ej. actualizar cada 1 segundo)
-        timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+        Integer sec= Integer.valueOf(timeout.getText());
+        timeline = new Timeline(new KeyFrame(Duration.seconds(sec), event -> {
             actualizarGrafico();
         }));
 
@@ -280,7 +285,8 @@ public class FXMLTopPgSqlController implements Initializable, Runnable {
         while (flag) {
             buscarActividades();
             try {
-                Thread.sleep(5000);
+                Integer sec= Integer.valueOf(timeout.getText());
+                Thread.sleep(sec*1000);
             } catch (InterruptedException ex) {
                 Log.error(ex);
             }
