@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import speco.toppgsql.om.KillSession;
 
 public class FXMLLockController implements Initializable {
 
@@ -104,10 +105,8 @@ public class FXMLLockController implements Initializable {
 
     private void ejecutarCancelBackend(int pid) {
         try {
-            Tx tx = new Tx(base);
-            // Intenta cancelar la consulta de forma suave
-            String sql = "SELECT pg_cancel_backend(" + pid + ");";
-          //  tx.execute(sql);
+             KillSession ks = new KillSession();
+             ks.callKillSession(pid, base);
             
             mostrarAlerta("Operación Exitosa", "Se envió la señal de cancelación al PID " + pid, Alert.AlertType.INFORMATION);
             cargarDatos(base); // Recargar la lista para verificar si el bloqueo se liberó
