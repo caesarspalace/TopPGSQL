@@ -13,6 +13,10 @@
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLLock.fxml</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLLockController.java</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelVLockRecursive.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/VIndexAdvisor.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelIndexAdvisor.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLIndexAdvisorController.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLIndexAdvisor.fxml</file>
         </group>
     </open-files>
 </project-private>
