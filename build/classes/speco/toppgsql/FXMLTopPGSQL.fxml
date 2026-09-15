@@ -26,7 +26,7 @@
                         <Button fx:id="ASH" onAction="#handlerASH" prefWidth="100.0" text="ASH" />
                         <Button fx:id="explain" onAction="#handlerExplain" prefWidth="100.0" text="Explain" />
                         <Button fx:id="lock" onAction="#handlerLock" prefWidth="100.0" text="Locks" />
-                        
+                        <Button fx:id="idxadvisor" onAction="#handleridxadvisor" prefWidth="100.0" text="Advisor" />
                      </children>
                   </HBox>
                </children>

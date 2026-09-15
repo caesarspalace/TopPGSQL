@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speco.toppgsql.FXMLIndexAdvisorController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Index Advisor (Sugerencias de Índices Faltantes)" />
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" spacing="10.0">
+               <children>
+                  <Button fx:id="btnRefrescar" mnemonicParsing="false" text="Refrescar Metrics" />
+                  <Button fx:id="btnCopiarDDL" mnemonicParsing="false" styleClass="button-accent" text="Copiar DDL Sugerido" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <TableView fx:id="tblIndexAdvisor" prefHeight="450.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="colTabla" prefWidth="160.0" text="Tabla / Esquema">
+             <cellValueFactory>
+                <PropertyValueFactory property="tabla" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="colTamanio" prefWidth="90.0" text="Tamaño">
+             <cellValueFactory>
+                <PropertyValueFactory property="tamanio_tabla" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="colSeqScan" prefWidth="100.0" text="Seq Scans">
+             <cellValueFactory>
+                <PropertyValueFactory property="seq_scan" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="colPctSeq" prefWidth="90.0" text="Seq Scan">
+             <cellValueFactory>
+                <PropertyValueFactory property="pct_seq_scan" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="colTiempoMedio" prefWidth="110.0" text="Tiempo Medio (ms)">
+             <cellValueFactory>
+                <PropertyValueFactory property="tiempo_medio_ms" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="colConsulta" prefWidth="240.0" text="Consulta Frecuente Candidate">
+             <cellValueFactory>
+                <PropertyValueFactory property="consulta_sql" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn fx:id="colSugerencia" prefWidth="260.0" text="Sugerencia DDL (CREATE INDEX)">
+             <cellValueFactory>
+                <PropertyValueFactory property="sugerencia_ddl" />
+             </cellValueFactory>
+          </TableColumn>
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+</BorderPane>

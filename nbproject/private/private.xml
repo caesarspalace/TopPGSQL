@@ -8,6 +8,11 @@
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLExplain.fxml</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLTopPGSQL.fxml</file>
             <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLTopPgSqlController.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/VLockRecursive.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLActivityHistory.fxml</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLLock.fxml</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/FXMLLockController.java</file>
+            <file>file:/home/tuxedo/projectos/TopPGSQL/src/speco/toppgsql/om/ModelVLockRecursive.java</file>
         </group>
     </open-files>
 </project-private>
