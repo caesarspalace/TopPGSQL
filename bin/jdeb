@@ -1,0 +1,19 @@
+export JAVA_HOME=/opt/jdk25
+export PATH=$JAVA_HOME/bin:$PATH
+rm -rf /home/tuxedo/projectos/dist
+jpackage \
+  --type deb \
+  --name sql-command-center \
+  --app-version 1.0.0 \
+  --description "SQL Command Center for PostgreSQL" \
+  --vendor "Speco" \
+  --input dist/ \
+  --main-jar TopPGSQL.jar \
+  --java-options "-Djava.library.path=/home/tuxedo/projectos/javafx-sdk-25.0.2/lib:/home/tuxedo/projectos/dist/TopPGSQL/lib/app:/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib --enable-native-access=javafx.graphics -Dprism.verbose=true -Ddebug=2 -Dcat.log=toppgql.log -Dcat.file=/home/tuxedo/projectos/TopPGSQL/conf/cat.postgres" \
+  --main-class speco.toppgsql.TopPGSQL \
+  --add-modules java.sql,javafx.swing,javafx.fxml,javafx.controls,javafx.base,javafx.graphics,javafx.media,javafx.web,java.management \
+  --module-path /home/tuxedo/projectos/javafx-sdk-25.0.2/lib \
+  --linux-shortcut \
+  --linux-menu-group "Development" \
+  --linux-app-category "Database" \
+  --linux-deb-maintainer "adrian@tabak.com"
